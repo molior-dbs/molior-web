@@ -1,0 +1,26 @@
+@import '~style/main';
+
+.repository-detail {
+    h4 {
+        margin: 15px 9px;
+        font-weight: normal;
+    }
+    label {
+        color: rgba(0, 0, 0, 0.54);
+        font-size: 13px;
+    }
+    span {
+        font-size: 14px;
+    }
+    a {
+        font-size: 14px;
+    }
+    .latest-build {
+        buildstate {
+            margin-right: 10px;
+        }
+    }
+    md-tabs{
+        background: white;
+    }
+}

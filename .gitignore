@@ -1,0 +1,27 @@
+# build
+moliorweb.egg-info
+.pybuild/
+debian/molior-web
+debian/files
+debian/debhelper-build-stamp
+debian/*.debhelper
+debian/*.debhelper.*
+debian/*.substvars
+*.deb
+/dist
+
+# doc
+
+doc/molior-web/*
+!doc/molior-web/assets
+!doc/molior-web/content
+
+# test
+coverage
+
+# editor
+*~
+__pycache__
+.idea
+
+start.sh

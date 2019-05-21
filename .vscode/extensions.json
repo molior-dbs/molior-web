@@ -1,0 +1,11 @@
+{
+    "recommendations": [
+        "rebornix.project-snippets",
+        "kisstkondoros.vscode-codemetrics",
+        "christian-kohler.path-intellisense",
+        "peterjuras.sort-imports",
+        "natewallace.angular2-inline",
+        "eg2.tslint",
+        "wayou.vscode-todo-highlight"
+    ]
+}

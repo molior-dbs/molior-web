@@ -1,0 +1,13 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+export NO_UPDATE_NOTIFIER=true
+
+%:
+	dh $@ --with systemd
+
+override_dh_auto_clean:
+	dh_auto_clean
+
+override_dh_auto_build:
+	npm run build

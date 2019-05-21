@@ -1,0 +1,15 @@
+
+.molior-logo {
+    background-image: url(/assets/img/moliorlogo_small.png);
+    width: 80px;
+    height: 37.44px;
+    background-size: 100% 100%;
+    &.molior-logo-the-fourth {
+        background-image: url(/assets/img/moliorlogo_the_fourth_small.png);
+    }
+    &.--large {
+        width: 500px;
+        height: 185px;
+        background-image: url(/assets/img/moliorlogo_large.png);
+    }
+}

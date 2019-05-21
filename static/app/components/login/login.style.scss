@@ -1,0 +1,31 @@
+@import '~style/main';
+
+.login {
+    .header-enlargener {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 300px;
+        z-index: 0;
+        background-color: $primary-color;
+    }
+    #login-container {
+        width: 100%;
+        position: absolute;
+        top: 40px;
+        z-index: 1;
+    }
+    
+    #login-content {
+        min-height: calc(90vh - 100px);
+    }
+    
+    #login-header {
+        width: 100%;
+        height: 210px;
+        background-color: darken($primary-color, 10%);
+    }
+}
+
+

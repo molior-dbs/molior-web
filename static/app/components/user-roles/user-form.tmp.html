@@ -1,0 +1,41 @@
+<div aria-label="Add a user to the project" class="user-roles-add" style="min-width:400px">
+    <form ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools" layout="row">
+                <h2>User Role</h2>
+                <span flex />
+                <md-button class="md-icon-button" ng-click="$ctrl.cancel()" aria-label="cancel">
+                    <ng-md-icon icon="close" style="fill:rgba(255,255,255,0.87);"></ng-md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div layout="column" layout-padding>
+                <md-autocomplete md-selected-item="$ctrl.query.name" md-selected-item-change="$ctrl.selectedItemChange(item)" md-search-text="$ctrl.query.nameSearch" md-items="item in $ctrl.UserSearch()" md-item-text="item.username" placeholder="Username">
+                    <md-item-template>
+                        <span md-highlight-text="$ctrl.query.nameSearch">{{item.username}}</span>
+                    </md-item-template>
+                    <md-not-found>
+                        No user found
+                    </md-not-found>
+                </md-autocomplete>
+                <md-input-container>
+                    <label>Role</label>
+                    <md-select ng-model="$ctrl.query.role">
+                        <md-option ng-repeat="role in $ctrl.userRoles" ng-value="role">{{ role }}</md-option>
+                    </md-select>
+                </md-input-container>
+
+                <md-dialog-actions layout="row">
+                    <md-button class="md-primary" ng-click="$ctrl.cancel()">
+                        Cancel
+                    </md-button>
+                    <md-button class="md-primary" ng-click="$ctrl.add()">
+                        Add
+                    </md-button>
+                </md-dialog-actions>
+
+            </div>
+        </md-dialog-content>
+    </form>
+</div>

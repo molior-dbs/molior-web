@@ -1,0 +1,84 @@
+.build-overview {
+    width: 100%;
+    height: 100%;
+    thead input {
+        padding: 0 5px !important;
+    }
+
+    thead th[md-column] {
+        padding: 0 5px 0 0 !important;
+    }
+
+    .buildstate-filter md-select {
+        margin: 5px 10px;
+    }
+
+    .buildstate-filter {
+        width: 90px;
+    }
+
+    thead .small-filter {
+        max-width: 120px;
+        min-width: 120px;
+        padding: 0 !important;
+    }
+
+    .build-more {
+        fill: #616161;
+    }
+
+    tbody .small-filter {
+        width: 140px;
+        padding: 0 !important;
+    }
+
+    .more-cell {
+        width: 40px;
+    }
+
+    .build-icon {
+        fill: #666;
+        padding-top: 2px;
+        padding-right: 7px;
+    }
+
+    thead .medium-filter {
+        max-width: 150px;
+        min-width: 150px;
+        padding: 0 !important;
+    }
+
+    tbody .medium-filter {
+        width: 120px;
+        padding: 0 !important;
+    }
+
+    md-select-value>span {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .project-version-name {
+        left: -5px;
+        position: relative;
+    }
+
+    .project-version-seperator {
+        left: -2px;
+        position: relative;
+    }
+    .clear-filter-button {
+        ng-md-icon {
+            fill: rgba(255,255,255, 0.8);
+        }
+    }
+    .maintainer-filter {
+        margin-right: 20px;
+    }
+}
+
+build-overview {
+    display: block;
+    height: 100%;
+    width: 100%;
+}

@@ -1,0 +1,39 @@
+<tr>
+    <td md-cell>
+        <md-checkbox ng-model="$ctrl.hook.enabled" aria-label="hook_enabled" ng-click="$ctrl.toggleHook()">
+        </md-checkbox>
+    </td>
+    <td md-cell>
+        <span>{{$ctrl.hook.url}}</span>
+    </td>
+    <td md-cell>
+        <span>{{$ctrl.hook.method | uppercase}}</span>
+    </td>
+    <td md-cell>
+        <md-menu md-position-mode="target-right target">
+            <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$ctrl.openOptionsMenu($mdOpenMenu, $event)">
+                <ng-md-icon class="build-more" md-menu-origin icon="more_vert"></ng-md-icon>
+            </md-button>
+            <md-menu-content width="4">
+                <md-menu-item>
+                    <md-button ng-click="$ctrl.editHook($event)">
+                        <div layout="row" layout-align="start center" flex>
+                            <p flex>Edit</p>
+                            <ng-md-icon icon="edit"></ng-md-icon>
+                        </div>
+
+                    </md-button>
+
+                </md-menu-item>
+                <md-menu-item>
+                    <md-button ng-click="$ctrl.deleteHook($event)">
+                        <div layout="row" layout-align="start center" flex>
+                            <p flex>Remove</p>
+                            <ng-md-icon icon="delete"></ng-md-icon>
+                        </div>
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+    </td>
+</tr>

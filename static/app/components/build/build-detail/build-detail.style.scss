@@ -1,0 +1,43 @@
+@import '~style/main';
+
+.build-detail {
+    .build-description {
+        background-color: white;
+        transition: border-color 0.5s ease;
+        min-height: 130px;
+
+        // This generates a class for each corresponding
+        // buildstate.
+        @each $build-state in $build-states {
+            $build-state-name: nth($build-state, 1);
+            $build-state-hex: nth($build-state, 2);
+            &-#{$build-state-name} {
+                .build-status-color {
+                    background-color: $build-state-hex;
+                }
+                .primary {
+                    color: $build-state-hex;
+                }
+            }
+        }
+        ng-md-icon {
+            margin-right: 3px;
+        }
+        .build-status-color {
+            width: 10px;
+        }
+        .rebuild-button ng-md-icon {
+            height: 24px;
+        }
+    }
+
+    .build-description-detail {
+        ng-md-icon {
+            fill: #9d9d9d;
+            margin-right: 8px;
+        }
+        span {
+            color: #666;
+        }
+    }
+}

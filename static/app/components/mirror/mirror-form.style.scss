@@ -1,0 +1,39 @@
+@import '~style/main';
+
+.mirror-create-new {
+    min-width: 1000px;
+    md-select {
+        top: -12px;
+        position: relative;
+    }
+    .mirror-url  {
+        font-size: 0;
+        span {
+            font-size: 16px;
+        }
+        
+        strong {
+            margin-left: 5px;
+        }
+        
+        p {
+            margin: 0;
+        }
+    }
+    .mirror-preview-item {
+        padding: 0 3px;
+        border: 2px dashed $primary-color;
+        margin: 0 2px;
+    }
+    md-checkbox {
+        margin-bottom: 30px;
+        &+.hint {
+            top: 35px;
+        }
+    }
+}
+
+
+
+
+

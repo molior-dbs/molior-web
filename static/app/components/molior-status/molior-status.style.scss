@@ -1,0 +1,54 @@
+@import '~style/main';
+
+.molior-status {
+    color: #323648;
+    .overall-status {
+        height: 125px;
+        width: 125px;
+        border-radius: 100%;
+        transition: all;
+        margin-top: 40px;
+        margin-bottom: 30px;
+        position: relative;
+        &-small {
+            top: 2px;
+            left: -1px;
+            height: 25px;
+            width: 25px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+        &-running {
+            background: $success-color;
+            box-shadow: 0 5px 25px transparentize($success-color, 0.7);
+        }
+        &-incident {
+            background-color: $warning-color;
+            box-shadow: 0 5px 25px transparentize($warning-color, 0.5);
+        }
+        ng-md-icon {
+            fill: rgba(255, 255, 255, 0.9);
+        }
+    }
+    h1 {
+        margin: 0 0 10px;
+        font-size: 40px;
+        font-weight: bold;
+    }
+    h2 {
+        margin: 0 0 40px;;
+    }
+    [md-table] th {
+        height: 50px;
+        padding: 0 10px !important;
+        font-weight: normal !important;
+        font-size: 20px;
+        color: rgba(255, 255, 255, 0.95) !important;
+        font-size: 16px !important;
+    }
+    .package-status {
+        strong {
+            margin-bottom: 5px;
+        }
+    }
+}

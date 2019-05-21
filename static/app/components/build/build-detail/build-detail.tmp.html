@@ -1,0 +1,99 @@
+<section ng-class="{'container': !$ctrl.version && !$ctrl.project}" class="build-detail">
+    <main layout-margin flex layout="column">
+        <section md-whiteframe="2" class="layout-row build-description build-description-{{$ctrl.build.buildstate}}">
+            <div class="build-status-color"></div>
+            <section layout-padding layout="column" flex>
+                <section layout="row">
+                    <div layout="row" flex>
+                        <buildstate status="$ctrl.build.buildstate"></buildstate>
+                        <span flex="33" class="primary build-description-title" ng-bind="$ctrl.build.buildstateDisplayName"></span>
+                    </div>
+                    <md-button class="rebuild-button" ng-disabled="!$ctrl.build.can_rebuild" ng-click="$ctrl.removeBuild()" md-margin layout="row" layout-align="center center">
+                        <ng-md-icon icon="refresh"></ng-md-icon>
+                        <span>Rebuild</span>
+                    </md-button>
+                </section>
+                <section class="build-description-detail">
+                    <div layout="row">
+                        <strong>
+                            <div ng-if="$ctrl.project && $ctrl.version">
+                                <a ui-sref="project-version.info({projectId: $ctrl.project.id, versionId: $ctrl.version.id })" ng-bind="$ctrl.project.name"></a>
+                                <span>/&nbsp;</span>
+                            </div>
+                            <span ng-bind="$ctrl.build.sourcename"></span>&nbsp;
+                            <span ng-bind="$ctrl.build.version"></span>
+                        </strong>
+                        <span ng-if="$ctrl.build.buildtype == 'source'">
+                            &nbsp;[source]
+                        </span>
+                        <span ng-if="$ctrl.build.buildtype == 'mirror'">
+                            &nbsp;[mirror]
+                        </span>
+                        <span ng-if="$ctrl.build.buildtype == 'debootstrap'">
+                            &nbsp;[debootstrap]
+                        </span>
+                        <span ng-if="$ctrl.build.buildtype == 'chroot'">
+                            &nbsp;[chroot]
+                        </span>
+                    </div>
+                    <div layout="row">
+                        <div flex="33" layout="row">
+                            <div>
+                                <ng-md-icon size="18" icon="account_box"></ng-md-icon>
+                            </div>
+                            <span>{{$ctrl.build.maintainer}}</span>
+                        </div>
+                        <div flex="33" layout="row">
+                            <div>
+                                <ng-md-icon size="18" icon="update"></ng-md-icon>
+                            </div>
+                            <span>{{$ctrl.build.version}}</span>
+                        </div>
+                    </div>
+                    <div layout="row">
+                        <div flex="33" layout="row">
+                            <div>
+                                <ng-md-icon size="18" icon="build"></ng-md-icon>
+                            </div>
+                            <span>{{$ctrl.build.buildvariant.name}}</span>
+                        </div>
+                        <div flex="33" layout="row">
+                            <div>
+                                <ng-md-icon size="18" icon="timer"></ng-md-icon>
+                            </div>
+                            <span>Ran for {{$ctrl.build.duration || 'n/a'}}</span>
+                        </div>
+                    </div>
+                    <div layout="row">
+                        <div flex="33" layout="row">
+                            <div>
+                                <ng-md-icon size="18" icon="call_merge"></ng-md-icon>
+                            </div>
+                            <span>{{$ctrl.build.branch || ''}}</span>
+                        </div>
+                        <div layout="row">
+                            <div>
+                                <ng-md-icon size="18" icon="today"></ng-md-icon>
+                            </div>
+                            <span>Started {{$ctrl.build.startString || 'n/a'}}</span>
+                            <md-tooltip>{{$ctrl.build.startstamp}}</md-tooltip>
+                        </div>
+                    </div>
+                    <div layout="row">
+                        <div layout="row">
+                            <div>
+                                <ng-md-icon size="18" icon="timeline"></ng-md-icon>
+                            </div>
+                            <a ng-if="$ctrl.build.git_ref" ng-href="{{$ctrl.build.commit_url}}" target="_blank">
+                                {{$ctrl.build.git_ref | limitTo : 11}}
+                            </a>
+                            <span ng-if="!$ctrl.build.git_ref">n/a</span>
+                            <md-tooltip ng-if="$ctrl.build.git_ref">View commit</md-tooltip>
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </section>
+        <buildlog md-whiteframe="2"  build="$ctrl.build" logline="$ctrl.logline"></buildlog>
+    </main>
+</section>

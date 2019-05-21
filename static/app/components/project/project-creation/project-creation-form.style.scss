@@ -1,0 +1,10 @@
+
+.project-creation-form {
+    min-width: 90vw;
+}
+
+@media (min-width: 1280px) {
+    .project-creation-form {
+        min-width: 60vw;
+    }
+}

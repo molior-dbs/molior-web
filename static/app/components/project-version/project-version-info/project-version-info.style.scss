@@ -1,0 +1,36 @@
+.apt-sources-header {
+    font-family: hack;
+    color: #f3f3f3;
+    background-color: #464646;
+}
+
+
+.apt-sources {
+    background-color: #242424;
+    color: rgba(255, 255, 255, 0.8);
+    padding-bottom: 10px;
+    padding-top: 10px;
+    padding-left: 15px;
+    font-size: smaller;
+    font-family: "hack";
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.no-deps {
+    margin: 15px;
+    color: #b1b1b1;
+}
+
+md-toolbar.project-version-info {
+    color: #848484;
+    background-color: #ffffff;
+    .md-toolbar-tools {
+        font-size: medium;
+    }
+}
+
+.locked-info {
+    color: #949494;
+    padding-left: 10px;
+}

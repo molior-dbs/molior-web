@@ -1,0 +1,101 @@
+{
+    "Print to console": {
+        "prefix": "log",
+        "body": [
+            "console.log('$1');",
+            "$2"
+        ],
+        "description": "Log output to console"
+    },
+    "Molior ES6 Module": {
+        "prefix": "es6module",
+        "body": [
+            "import * as angular from 'angular';",
+            "",
+            "/**",
+            " * @ngdoc overview",
+            " * @name moliorApp.$1",
+            " * @description",
+            " * # moliorApp.$1",
+            " * ",
+            " */",
+            "export const $2Module = angular",
+            "    .module('moliorApp.$1', [])",
+            "    .name;"
+        ],
+        "description": "Molior Module"
+    },
+    "Molior ES6 Component": {
+        "prefix": "es6component",
+        "body": [
+            "// @ts-ignore",
+            "import template from './$2.tmp.html';",
+            "",
+            "/**",
+            " * @ngdoc controller",
+            " * @name moliorApp.$3.controller:$1Controller",
+            " * @description",
+            " * $5",
+            " *",
+            " * @requires moliorApp.log.service:Log",
+            " */",
+            "export class $1Controller {",
+            "    constructor(Log) {",
+            "        this.logger = Log.init('$1');",
+            "    }",
+            "}",
+            "",
+            "/**",
+            " * @ngdoc directive",
+            " * @name moliorApp.$3.directive:$4",
+            " * @description",
+            " * $5",
+            " * @restrict 'E'",
+            " *",
+            " */",
+            "export const $1Component = {",
+            "    templateUrl: template,",
+            "    controller: $1Controller,",
+            "    bindings: {",
+            "    }",
+            "};"
+        ]
+    },
+    "Molior ES6 Directive": {
+        "prefix": "es6directvie",
+        "body": [
+            "/**",
+            " * @ngdoc controller",
+            " * @name moliorApp.$3.controller:$1Controller",
+            " * @description",
+            " * $5",
+            " *",
+            " */",
+            "export class $1Controller {",
+            "    constructor() {",
+            "    }",
+            "}",
+            "",
+            "/**",
+            " * @ngdoc directive",
+            " * @name moliorApp.$3.directive:$4",
+            " * @description",
+            " * $5",
+            " * @restrict 'E'",
+            " *",
+            " */",
+            "export const $1Directive = () => {",
+            "    return {",
+            "        template: `",
+            "        `,",
+            "        controller: $1Controller,",
+            "        controllerAs: '$ctrl',",
+            "        bindToController: true,",
+            "        restrict: 'E',",
+            "        scope: {",
+            "        }",
+            "    };",
+            "};"
+        ]
+    }
+}

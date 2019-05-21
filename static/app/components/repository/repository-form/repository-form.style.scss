@@ -1,0 +1,13 @@
+.repository-form {
+    min-width: 90vw;
+    min-height: 30vh;
+    ul {
+        margin: 0;
+    }
+}
+
+@media (min-width: 1280px) {
+    .repository-form {
+        min-width: 60vw;
+    }
+}

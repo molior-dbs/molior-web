@@ -1,0 +1,31 @@
+<div flex class="buildvariant-picker" ng-class="{'buildvariant-picker-disabled': $ctrl.isDisabled}">
+    <table ng-if="!$ctrl.isLoading">
+        <thead>
+            <tr>
+                <th>
+                    <md-button aria-label="Button placeholder" disabled></md-button>
+                </th>
+                <th ng-repeat="architecture in $ctrl.architectures | filter:{name: '!all'}">
+                    <md-button aria-label="toggle architectures" ng-disabled="$ctrl.isDisabled" ng-click="$ctrl.toggleArchitectures(architecture.id)" ng-bind="architecture.name"></md-button>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="basemirror in $ctrl.basemirrors">
+                <td>
+                    <md-button aria-label="toggle basemirrors" ng-disabled="$ctrl.isDisabled" ng-click="$ctrl.toggleBasemirrors(basemirror.id)" ng-bind="basemirror.name"></md-button>
+                </td>
+                <td ng-class="{'toggle-button-disabled': $ctrl.isFieldDisabled(architecture.id, basemirror.id)}" ng-repeat="architecture in $ctrl.architectures | filter:{name: '!all'}">
+                    <div layout="column" layout-align="center center" flex>
+                        <md-checkbox flex class="md-primary" id="{{architecture.id}}-{{basemirror.id}}" ng-if="!$ctrl.isDisabled || $ctrl.isSelected(architecture.id, basemirror.id)" aria-label="select buildoptions" ng-disabled="$ctrl.isDisabled || $ctrl.isFieldDisabled(architecture.id, basemirror.id)"
+                            ng-click="$ctrl.toggle(architecture.id, basemirror.id)" ng-checked="$ctrl.isSelected(architecture.id, basemirror.id)">
+                        </md-checkbox>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div ng-if="$ctrl.isLoading" layout="row" layout-align="center center">
+        <md-progress-circular md-mode="indeterminate" md-diameter="50"></md-progress-circular>
+    </div>
+</div>

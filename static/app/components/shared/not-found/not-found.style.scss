@@ -1,0 +1,30 @@
+@import '~style/main';
+
+.not-found {
+    font-size: 60px;
+    text-align: center;
+    color: rgba(255, 255, 255, 1);
+    background: url(~img/penguin_not_found.gif);
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+    &-content {
+        font-weight: bolder;
+
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .md-button {
+        height: 60px;
+        font-size: 16px;
+        padding: 14px 31px;
+    }
+    small {
+        font-weight: normal;
+        font-size: 20px;
+        line-height: 20px;
+    }
+}

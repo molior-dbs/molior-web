@@ -1,0 +1,26 @@
+<section layout="column">
+    <section layout="row" flex class="editable-input">
+        <section flex>
+            <pre class="editable-input-field" ng-if="!$ctrl.isEditing" ng-bind="::$ctrl.ngModel"></pre>
+            <div ng-if="$ctrl.isEditing">
+                <md-input-container class="md-block">
+                    <textarea ng-model="$ctrl.ngModel"></textarea>
+                </md-input-container>
+            </div>
+        </section>
+        <section ng-if="!$ctrl.isDisabled">
+            <div class="molior-icon-button" ng-if="!$ctrl.isEditing" ng-click="$ctrl.isEditing = true;">
+                <ng-md-icon icon="edit"></ng-md-icon>
+                <md-tooltip md-direction="left">Edit</md-tooltip>
+            </div>
+            <div class="molior-icon-button" ng-if="$ctrl.isEditing" ng-click="$ctrl.isEditing = false;">
+                <ng-md-icon icon="cancel"></ng-md-icon>
+                <md-tooltip md-direction="left">Cancel</md-tooltip>
+            </div>
+        </section>
+    </section>
+    <div layout="row" flex>
+        <span flex></span>
+        <md-button class="md-primary md-raised" ng-if="$ctrl.isEditing" ng-click="$ctrl.onChanges({value: $ctrl.ngModel});$ctrl.isEditing = false;">Save</md-button>
+    </div>
+</section>

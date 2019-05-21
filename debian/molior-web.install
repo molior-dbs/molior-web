@@ -1,0 +1,4 @@
+etc/* etc
+dist/* usr/share/molior-web
+# FIXME: no documentation generated?
+# doc/molior-web/* usr/share/molior-web/doc

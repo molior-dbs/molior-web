@@ -1,0 +1,69 @@
+@import '~style/main';
+
+.molior-header {
+    background-color: $primary-color;
+    transition: all 0.5s ease-in-out;
+    height: 50px;
+    .logo-button {
+        height: 50px !important;
+        width: 200px;
+    }
+    
+    .websocket-status {
+        margin-right: 15px;
+    }
+    
+    nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        height: 100%;
+    }
+    
+    nav ul li {
+        height: 100%;
+    }
+    
+    nav ul li .md-button:hover {
+        background: rgba(0, 0, 0, 0.2);
+    }
+    
+    nav ul li .md-button:active {
+        background: rgba(0, 0, 0, 0.25);
+    }
+    
+    nav ul li .md-button.active {
+        background: rgba(0, 0, 0, 0.3);
+    }
+    
+     .md-button {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        border-radius: 0;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        color: rgba(255, 255, 255, 0.8);
+        fill: rgba(255, 255, 255, 0.8);
+    }
+    
+    .md-button ng-md-icon {
+        height: 25px;
+    }
+    
+    &-content {
+        height: 100%;
+    }
+    
+    &-session-menu-container {
+        min-width: 200px;
+    }
+}
+
+molior-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 71;
+}

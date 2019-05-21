@@ -1,0 +1,35 @@
+.alert[ng-click],
+.alert[ui-sref] {
+    cursor: pointer;
+}
+
+.alert {
+    color: white;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+}
+
+.alert>ng-md-icon {
+    position: relative;
+    margin: 13px;
+    top: 2px;
+}
+
+.alert md-button {
+    color: white;
+}
+
+.alert.alert-info {
+    background-color: #2196f3;
+}
+
+.alert.alert-info>ng-md-icon {
+    fill: #1565c0;
+}
+
+.alert.alert-warn {
+    background-color: $error-color;
+}
+
+.alert.alert-warn>ng-md-icon {
+    fill: #b71c1c;
+}

@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+      "module": "commonjs",
+      "noImplicitAny": false,
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "target": "es5",
+      "lib": ["es2015", "dom"],
+      "sourceMap": true,
+      "rootDir": "./static/app",
+      "skipLibCheck": true,
+       "baseUrl": ".",
+       "paths": {
+         "@molior/*": ["./static/app/*"]
+       }
+    },
+    "include": [
+      "static/"
+    ],
+    "exclude": [
+      "bower_components/**",
+      "node_modules/**",
+      "**/*.spec.ts",
+      "sample/**/*.ts",
+      "e2e"
+    ]
+  }

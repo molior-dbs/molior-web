@@ -1,0 +1,9 @@
+<a name="2.0.0"></a>
+# [2.0.0](https://github.com/driftyco/ionic/compare/v2.3.0...v3.0.0) (2017-04-05)
+
+
+### BREAKING CHANGES
+
+### Bug Fixes
+
+* **alert:** add missing cssClass property for buttons ([4fbcda7](https://github.com/driftyco/ionic/commit/4fbcda7))

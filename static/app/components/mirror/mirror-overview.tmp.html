@@ -1,0 +1,122 @@
+<div id="mirror-overview-content">
+    <div flex-gt-xs="100" flex-offset-gt-xs="0" class="project-version-detail-subnav">
+        <div flex-gt-xs="100" flex-offset-gt-xs="0" flex-gt-md="80" flex-offset-gt-md="10" layout="row" layout-align="space-between end">
+            <h2 layout-margin class="title-spaceing">
+                <strong>Mirrors</strong>
+            </h2>
+            <md-button class="md-primary md-raised" ng-click="$ctrl.openNewMirrorDialog($event)">NEW MIRROR</md-button>
+        </div>
+    </div>
+    <md-card flex-gt-xs="100" flex-offset-gt-xs="0" flex-gt-md="80" flex-offset-gt-md="10">
+        <md-table-container>
+            <table md-table>
+                <thead md-head>
+                    <tr md-row>
+                        <th md-column>State</th>
+                        <th md-column>Type</th>
+                        <th md-column>
+                            <div flex>
+                                <md-autocomplete md-search-text-change="$ctrl.load()" md-search-text="$ctrl.query.filter_name" md-items="item in []" placeholder="Name"></md-autocomplete>
+                            </div>
+                        </th>
+                        <th md-column>Source</th>
+                        <th md-column>Distribution</th>
+                        <th md-column>Components</th>
+                        <th md-column>Architectures</th>
+                        <th md-column></th>
+                    </tr>
+                </thead>
+                <tbody md-body>
+                    <tr md-row ng-repeat="mirror in $ctrl.mirror.results">
+                        <td md-cell>
+                            <div layout="row" layout-align="start center" flex>
+                                <div ng-switch on="mirror.state">
+                                    <div ng-switch-when="created">
+                                        <ng-md-icon icon="child_friedly" style="fill:green;" />
+                                        <md-tooltip>
+                                            Created
+                                        </md-tooltip>
+                                    </div>
+                                    <div ng-switch-when="error">
+                                        <ng-md-icon icon="error" />
+                                        <md-tooltip>
+                                            Error
+                                        </md-tooltip>
+                                    </div>
+                                    <div ng-switch-when="updating">
+                                        <ng-md-icon icon="cloud_download" style="fill:grey;" />
+                                        <md-tooltip>
+                                            Updating
+                                        </md-tooltip>
+                                    </div>
+                                    <div ng-switch-when="ready">
+                                        <ng-md-icon icon="check" style="fill:green;"></ng-md-icon>
+                                        <md-tooltip>
+                                            Ready
+                                        </md-tooltip>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td md-cell>
+                            <div ng-if="mirror.is_basemirror">
+                                <ng-md-icon icon="debian"></ng-md-icon>
+                                <md-tooltip>
+                                    base mirror
+                                </md-tooltip>
+                            </div>
+                        </td>
+                        <td md-cell>
+                            <a href="{{mirror.apt_url}}" target="_blank"><strong>{{mirror.name}}/{{mirror.version}}</strong></a>
+                            <md-tooltip>
+                                {{mirror.apt_url}}
+                            </md-tooltip>
+                        </td>
+                        <td md-cell><a href="{{mirror.url}}" target="_blank" ng-bind="mirror.url"></a></td>
+                        <td md-cell ng-bind="mirror.distribution"></td>
+                        <td md-cell ng-bind="mirror.components"></td>
+                        <td md-cell>{{mirror.architectures}}</td>
+                        <td md-cell>
+                            <md-menu md-position-mode="target-right target">
+                                <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$ctrl.openMirrorDetailMenu($mdOpenMenu, $event)">
+                                    <ng-md-icon class="build-more" md-menu-origin icon="more_vert"></ng-md-icon>
+                                </md-button>
+                                <md-menu-content width="4">
+                                    <md-menu-item>
+                                        <md-button ng-click="$ctrl.updateMirror(mirror)" ng-disabled="mirror.state != 'error' || mirror.is_locked === true">
+                                            <div layout="row" layout-align="start center" flex>
+                                                <p flex>Update</p>
+                                                <ng-md-icon icon="refresh"></ng-md-icon>
+                                            </div>
+                                        </md-button>
+                                    </md-menu-item>
+                                    <md-menu-divider></md-menu-divider>
+                                    <md-menu-item>
+                                        <md-button ng-click="$ctrl.showLockMirrorConfirmation($event, mirror.id, mirror.name + '/' + mirror.version)" ng-disabled="mirror.state === 'updating' || mirror.is_locked === true">
+                                            <div layout="row" layout-align="start center" flex>
+                                                <p flex>Lock</p>
+                                                <ng-md-icon icon="lock"></ng-md-icon>
+                                            </div>
+                                        </md-button>
+                                    </md-menu-item>
+                                    <md-menu-divider></md-menu-divider>
+                                    <md-menu-item>
+                                        <md-button ng-click="$ctrl.deleteMirror($event, mirror.id, mirror.name)" ng-disabled="!($ctrl.user.is_admin && (['downloading', 'updating'].indexOf(mirror.state) == -1))">
+                                            <div layout="row" layout-align="start center" flex>
+                                                <p flex>Remove</p>
+                                                <ng-md-icon icon="delete"></ng-md-icon>
+                                            </div>
+                                        </md-button>
+                                    </md-menu-item>
+                                </md-menu-content>
+                            </md-menu>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </md-table-container>
+        <md-table-pagination md-on-paginate="load" md-limit="$ctrl.query.pageSize" md-limit-options="[10, 20, 50]" md-page="$ctrl.query.page"
+            md-total="{{ $ctrl.mirror.total_result_count }}" md-page-select="true" md-boundary-links="true">
+        </md-table-pagination>
+    </md-card>
+</div>

@@ -1,0 +1,21 @@
+<md-toolbar layout="row" layout-align="center center">
+    <div class="md-toolbar-tools" flex>Project</div>
+    <md-button class="md-icon-button" ng-click="$ctrl.onClose()">
+        <ng-md-icon icon="close" />
+    </md-button>
+</md-toolbar>
+<form layout-padding ng-submit="$ctrl.saveProject()">
+    <p>A project develops a life cycle of software components and can contain one or more project versions.</p>
+    <md-input-container md-no-float flex class="md-block">
+        <label>Name</label>
+        <input required ng-model="$ctrl.ngModel.name" aria-label="projectname">
+    </md-input-container>
+    <md-input-container md-no-float flex class="md-block">
+        <label>Description</label>
+        <textarea ng-model="$ctrl.ngModel.description" rows="3" aria-label="description"></textarea>
+    </md-input-container>
+    <div layout="row">
+        <span flex></span>
+        <ng-transclude></ng-transclude>
+    </div>
+</form>

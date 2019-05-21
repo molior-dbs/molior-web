@@ -1,0 +1,176 @@
+<div class="mirror-create-new" flex>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Mirror</h2>
+            <span flex></span>
+            <md-button aria-label="Close Mirrorform" class="md-icon-button" ng-click="$ctrl.cancel()">
+                <ng-md-icon icon="close" style="fill:rgba(255,255,255,0.87);" />
+            </md-button>
+        </div>
+    </md-toolbar>
+    <form layout-margin layout="column">
+        <md-stepper id="mirror-form-stepper" md-linear="$ctrl.isStepperLinear" ng-init="$ctrl.isStepperLinear = true">
+            <md-step md-label="Mirror">
+                <md-step-body>
+                    <div layout-margin layout="column">
+                        <h3>Mirror</h3>
+                        <md-input-container flex="25">
+                            <input name="name" type="text" ng-model="$ctrl.ngModel.name" required placeholder="Name" aria-label="Mirror Name"/>
+                        </md-input-container>
+                        <md-input-container flex="25">
+                            <input name="version" type="text" ng-model="$ctrl.ngModel.version" required placeholder="Version" aria-label="Mirror Version"/>
+                        </md-input-container>
+                    </div>
+                </md-step-body>
+                <md-step-actions>
+                    <md-button class="md-primary" ng-click="$ctrl.cancel();">Cancel</md-button>
+                    <md-button ng-disabled="!$ctrl.ngModel.name || !$ctrl.ngModel.version" class="md-primary md-raised" ng-click="$ctrl.nextStep();">Continue</md-button>
+                </md-step-actions>
+            </md-step>
+            <md-step md-label="Configuration">
+                <md-step-body>
+                    <div layout-margin layout="column">
+                        <h3>Configuration</h3>
+                        <md-input-container flex="45">
+                            <md-checkbox type="checkbox" ng-model="$ctrl.ngModel.download_sources">Mirror Source</md-checkbox>
+                            <div class="hint">Download Source Packages</div>
+                        </md-input-container>
+                        <md-input-container flex="45">
+                            <md-checkbox type="checkbox" ng-model="$ctrl.ngModel.is_basemirror">Basemirror</md-checkbox>
+                            <div class="hint">Mirror provides an installable operating system</div>
+                        </md-input-container>
+                        <md-input-container flex="45">
+                            <md-checkbox type="checkbox" ng-model="$ctrl.ngModel.download_installer" ng-disabled="!$ctrl.ngModel.is_basemirror">Mirror Installer</md-checkbox>
+                            <div class="hint">Download Installer files (udebs)</div>
+                        </md-input-container>
+
+                        <div class="clearfix"></div>
+                        <md-input-container style="top: 10px">
+                            <label>Basemirror</label>
+                            <md-select ng-disabled="$ctrl.ngModel.is_basemirror" ng-required="!$ctrl.ngModel.is_basemirror" ng-model="$ctrl.ngModel.basemirror">
+                                <md-option value=""></md-option>
+                                <md-option ng-repeat="basemirror in $ctrl.basemirrors" ng-bind="basemirror.project.name + '-' + basemirror.name" ng-value="basemirror"></md-option>
+                            </md-select>
+                        </md-input-container>
+
+                        <div layout="row" layout-align="center center">
+                            <md-input-container flex="15">
+                                <label>Distribution</label>
+                                <input placeholder="" name="dist" type="text" ng-model="$ctrl.ngModel.distribution" required aria-label="Distribution"
+                                />
+                                <div class="hint">e.g. jessie</div>
+                            </md-input-container>
+                            <md-input-container flex="40">
+                                <label>Architectures</label>
+                                <md-select required ng-model="$ctrl.ngModel.architectures" multiple>
+                                    <md-option ng-repeat="architecture in $ctrl.getArchitectures()" ng-bind="architecture" ng-value="architecture"></md-option>
+                                </md-select>
+                            </md-input-container>
+                            <md-input-container flex="45">
+                                <md-chips md-add-on-blur ng-model="$ctrl.ngModel.components" md-separator-keys="[32, 188, 13]" placeholder="Component(s)"
+                                    required></md-chips>
+                                <div class="hint">e.g. main, non-free. Press enter / space to confirm the component</div>
+                            </md-input-container>
+                        </div>
+                        <md-input-container flex>
+                            <label>Source Url</label>
+                            <input name="url" type="url" ng-model="$ctrl.ngModel.url" required placeholder="" aria-label="Source URL" />
+                            <div class="hint">e.g. http://debian.sur5r.net/i3/</div>
+                        </md-input-container>
+                    </div>
+                </md-step-body>
+                <md-step-actions>
+                    <md-button class="md-primary" ng-click="$ctrl.previousStep()">Back</md-button>
+                    <md-button class="md-primary md-raised" ng-click="$ctrl.nextStep(); $ctrl.isStepperLinear = false" ng-disabled="!$ctrl.ngModel.distribution || !$ctrl.ngModel.components || !$ctrl.ngModel.architectures.length || !$ctrl.ngModel.url">Continue</md-button>
+                </md-step-actions>
+            </md-step>
+            <md-step md-label="Key">
+                <md-step-body>
+                    <h3>Key</h3>
+                    <md-radio-group ng-model="$ctrl.selectedKeyOption" layout-margin>
+                        <md-radio-button ng-value="0" flex class="md-primary">
+                            Use ASCII armored key URL
+                        </md-radio-button>
+                        <div flex layout="row">
+                            <md-input-container flex>
+                                <input ng-disabled="$ctrl.selectedKeyOption === 1" name="keyserver" type="url" ng-model="$ctrl.ngModel.armored_key_url" placeholder="Key URL"
+                                    aria-label="Key Server">
+                                <div class="hint">e.g. http://debrepo/repo.asc</div>
+                            </md-input-container>
+                        </div>
+                        <md-radio-button ng-value="1" flex class="md-primary">
+                            Use Mirror Key
+                        </md-radio-button>
+                        <div flex layout="column">
+                            <md-input-container flex>
+                                <md-chips md-add-on-blur ng-disabled="$ctrl.selectedKeyOption === 0" ng-model="$ctrl.ngModel.keys" md-separator-keys="[32, 188, 13]"
+                                    placeholder="Mirror Keys" required></md-chips>
+                                <div class="hint">e.g. 4E7160ED4AC8EE1D. Press enter / space to confirm the mirror key</div>
+                            </md-input-container>
+                            <md-input-container flex>
+                                <input name="keyserver" ng-disabled="$ctrl.selectedKeyOption === 0" type="url" ng-model="$ctrl.ngModel.keyserver" placeholder="Key Server URL"
+                                    aria-label="Key Server URL">
+                                <div class="hint">e.g. hkp://keyserver.ubuntu.com:80</div>
+                            </md-input-container>
+                        </div>
+                        <md-radio-button ng-value="2" flex class="md-primary">
+                            No key
+                        </md-radio-button>
+                    </md-radio-group>
+                </md-step-body>
+                <md-step-actions>
+                    <md-button class="md-primary" ng-click="$ctrl.previousStep();">Back</md-button>
+                    <md-button ng-disabled="($ctrl.selectedKeyOption === 0 && !$ctrl.ngModel.armored_key_url) || ($ctrl.selectedKeyOption === 1 && (!$ctrl.ngModel.keys.length || !$ctrl.ngModel.keyserver))"
+                        class="md-primary md-raised" ng-click="$ctrl.nextStep();">Continue</md-button>
+                </md-step-actions>
+            </md-step>
+            <md-step md-label="Confirmation">
+                <md-step-body layout-margin layout="column">
+                    <h3>Confirmation</h3>
+                    <div class="mirror-url" flex layout="row" layout-align="start center">
+                        <p><span>Final mirror url:</span></p>
+                        <strong layout-margin flex layout="row" layout-align="start center">
+                            <p>
+                                <span ng-bind="$ctrl.aptlyhostname"></span>
+                                <md-tooltip>Aptly Hostname</md-tooltip>
+                            </p>
+                            <p class="mirror-preview-item">
+                                <span ng-bind="$ctrl.ngModel.distribution"></span>
+                                <md-tooltip>Distribution</md-tooltip>
+                            </p>
+                            <p>
+                                <span>/mirrors/</span>
+                            </p>
+                            <p class="mirror-preview-item">
+                                <span ng-bind="$ctrl.ngModel.name"></span>
+                                <md-tooltip>Mirror Name</md-tooltip>
+                            </p>
+                            <p>
+                                <span>/</span>
+                            </p>
+                            <p class="mirror-preview-item">
+                                <span ng-bind="$ctrl.ngModel.version"></span>
+                                <md-tooltip>Mirror Version</md-tooltip>
+                            </p>
+                        </strong>
+                    </div>
+                    <div>
+                        <div ng-if="$ctrl.status" flex layout="row" class="message error-message" layout-padding layout-align="start center">
+                            <ng-md-icon size="40" icon="error"></ng-md-icon>
+                            <div flex>
+                                {{ $ctrl.status }}
+                            </div>
+                        </div>
+                    </div>
+                </md-step-body>
+                <md-step-actions>
+                    <div flex layout="row" layout-align="start center">
+                        <md-button class="md-primary" ng-click="$ctrl.previousStep();">Back</md-button>
+                        <md-button class="md-primary md-raised" ng-disabled="$ctrl.isCreatingMirror" ng-click="$ctrl.create($ctrl.ngModel, $ctrl.selectedKeyOption);">Confirm</md-button>
+                        <md-progress-circular ng-if="$ctrl.isCreatingMirror" md-diameter="20px"></md-progress-circular>
+                    </div>
+                </md-step-actions>
+            </md-step>
+        </md-stepper>
+    </form>
+</div>

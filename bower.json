@@ -1,0 +1,15 @@
+{
+  "name": "molior-web",
+  "authors": [
+    "André Roth <neolynx@gmail.com>"
+  ],
+  "description": "Web interface for Molior Debian Build System.",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "dependencies": {
+    "ngSocket": "^0.2.1"
+  }
+}

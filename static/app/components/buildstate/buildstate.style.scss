@@ -1,0 +1,18 @@
+@import '~style/main';
+
+.buildstate {
+    &-building svg {
+        -webkit-animation: rotating 2s linear infinite reverse;
+        -moz-animation: rotating 2s linear infinite reverse;
+        animation: rotating 2s linear infinite reverse;
+    }
+    // This generates a class for each corresponding
+    // buildstate. 
+    @each $build-state in $build-states {
+        $build-state-name: nth($build-state, 1);
+        $build-state-hex: nth($build-state, 2);
+        &-#{$build-state-name} {
+            fill: $build-state-hex;
+        }
+    }
+}

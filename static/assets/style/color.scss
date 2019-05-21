@@ -1,0 +1,18 @@
+$primary-color:#571845;
+$accent-color: #F8EC00;
+$error-color: #FF4800;
+$success-color: #43a047;
+$warning-color: #EAC503;
+$blue: #6B2C5A;
+
+$build-states: (
+    new: #616161,
+    needs_build: #616161,
+    publishing: rgb(33,150,243),
+    needs_publish: #616161,
+    building: rgb(33,150,243),
+    scheduled: #616161,
+    publish_failed: $error-color,
+    build_failed: $error-color,
+    successful: #388e3c,
+  );

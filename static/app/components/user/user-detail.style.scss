@@ -1,0 +1,22 @@
+.user-detail {
+    min-width: 500px;
+    min-height: 400px;
+    .close-icon {
+        fill: rgba(255,255,255,0.87);
+    }
+}
+
+.no-margin-input-container {
+    margin-top: 0px !important;
+    margin-bottom: 0px;
+}
+
+.user-list .md-secondary-container {
+    width: 100px;
+}
+
+.admin-only {
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-weight: bold;
+    float: right;
+}

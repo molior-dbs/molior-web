@@ -1,0 +1,48 @@
+.card-stats {
+    height: 150px;
+    padding-left: 40px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.card-stats ng-md-icon {
+    fill: white !important;
+    position: absolute;
+    right: -60px;
+    bottom: -60px;
+    transition: transform 0.5s ease-in-out;
+}
+
+.card-stats:hover ng-md-icon {
+    transform: scale(1.05, 1.05);
+}
+
+.card-stats-number {
+    font-size: 30px;
+}
+
+.card-stats-success {
+    background-color: $success-color;
+}
+
+.card-stats-success:hover {
+    background-color: darken($success-color, 10%);
+}
+
+.card-stats-failed {
+    background-color: $error-color;
+}
+
+.card-stats-failed:hover {
+    background-color: darken($error-color, 10%);
+}
+
+.card-stats-total {
+    background-color: $blue;
+}
+
+.card-stats-total:hover {
+    background-color: darken($blue, 10%);
+}

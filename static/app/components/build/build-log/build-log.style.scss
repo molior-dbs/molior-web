@@ -1,0 +1,108 @@
+.buildlog {
+    header {
+        background-color: #444;
+        .md-button {
+            color: white;
+        }
+        ng-md-icon {
+            fill: white;
+            position: relative;
+            top: 7px;
+        }
+        .buildstate {
+            position: relative;
+            top: 2px;
+        }
+        .buildlog-header-sticky-text {
+            margin-left: 10px;
+        }
+    }
+    .error-log-not-found {
+        min-height: 400px;
+        background: url(~img/penguin_not_found.gif);
+        background-size: cover;
+        background-position: center;
+        ng-md-icon {
+            fill: rgba(255, 255, 255, 0.8);
+        }
+        span {
+            font-size: 40px;
+        }
+    }
+    .log-table {
+        width: 100%;
+        .log-number{
+            width: 4em;
+        }
+    }
+    .logs {
+        background-color: #242424;
+        color: rgba(255, 255, 255, 0.8);
+        margin: 0;
+        p:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        .log-number {
+            vertical-align: top;
+            cursor: pointer;
+            &::before {
+                content: attr(data-line-number);
+                font-weight: bold;
+                float: left;
+                width: 4em;
+                user-select: none;
+                font-size: 12px;
+                margin-right: 10px;
+                text-align: right;
+            }
+        }      
+        .log-line {
+            padding: 0;
+            padding-left: 5px;
+            &>span {
+                width: 100%;
+                word-break: break-all;
+            }
+        }
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        pre {
+            margin: 0;
+            white-space: pre-wrap;
+            white-space: -moz-pre-wrap;
+            white-space: -pre-wrap;
+            white-space: -o-pre-wrap;
+            word-wrap: break-word;
+            font-family: Hack, monospace;
+            font-size: small;
+            line-height: 95%;
+        }
+    }
+    .log-table tr.active {
+        background-color: rgba(255, 255, 255, 0.4);
+    }
+    .sticky-text {
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        color: white;
+        build-status ng-md-icon {
+            position: relative;
+            top: -2px !important;
+            margin-right: 10px;
+            height: 20px;
+        }
+    }
+    &-header {
+    transition: box-shadow 0.5s ease-in-out;
+    
+    }
+    &-header-sticky {
+        z-index: 72;
+        /* md-whiteframe 2 (= same as molior header) */
+        box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12);
+        .sticky-text {
+            opacity: 1;
+        }
+    }
+}

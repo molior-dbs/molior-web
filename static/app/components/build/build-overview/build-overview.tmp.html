@@ -1,0 +1,84 @@
+<div class="build-overview">
+    <md-card>
+        <md-table-container>
+            <table md-table>
+                <thead md-head>
+                    <tr>
+                        <th md-column>
+                            <md-card class="buildstate-filter">
+                                <md-select multiple aria-label="Buildstate Select" ng-change="$ctrl.loadBuilds()" ng-model="$ctrl.filters.buildstate">
+                                    <md-option value="">
+                                    </md-option>
+                                    <md-option value="{{ item }}" ng-repeat="item in $ctrl.buildstates.results" layout-align="center center">
+                                        <buildstate status="item"></buildstate>
+                                    </md-option>
+                                </md-select>
+                            </md-card>
+                        </th>
+                        <th md-column>
+                            <md-autocomplete ng-model-options="{ debounce: 500 }" md-search-text-change="$ctrl.loadBuilds()" md-selected-item-change="$ctrl.loadBuilds()"
+                                md-search-text="$ctrl.filters.sourcerepository" md-items="item in []" md-item-text="item.name"
+                                md-min-length="0" placeholder="Repository">
+                            </md-autocomplete>
+                        </th>
+                        <th md-column>
+                            <md-autocomplete class="small-filter" ng-model-options="{ debounce: 500 }" md-search-text-change="$ctrl.loadBuilds()" md-selected-item-change="$ctrl.loadBuilds()"
+                                md-search-text="$ctrl.filters.buildvariant" md-items="item in []" md-item-text="item.name" md-min-length="0"
+                                placeholder="Buildvariant">
+                            </md-autocomplete>
+                        </th>
+                        <th md-column ng-if="$ctrl.projectVersionId === undefined">
+                            <md-autocomplete ng-model-options="{ debounce: 500 }" md-search-text-change="$ctrl.loadBuilds()" md-selected-item-change="$ctrl.loadBuilds()"
+                                md-search-text="$ctrl.filters.project" md-items="item in []" md-item-text="item.name" md-min-length="0"
+                                placeholder="Project">
+                            </md-autocomplete>
+                        </th>
+                        <th md-column>
+                            <md-autocomplete class="small-filter maintainer-filter" ng-model-options="{ debounce: 500 }" md-search-text-change="$ctrl.loadBuilds()" md-selected-item-change="$ctrl.loadBuilds()"
+                                md-search-text="$ctrl.filters.maintainer" md-items="item in []" md-item-text="item.name" md-min-length="0"
+                                placeholder="Maintainer">
+                            </md-autocomplete>
+                        </th>
+                        <th md-column>
+                            Commit
+                        </th>
+                        <th md-column>
+                            Start/Duration
+                        </th>
+                        <th md-column layout-align="center center" class="more-cell">
+                            <md-button ng-click="$ctrl.filters = {}" class="md-icon-button clear-filter-button">
+                                <ng-md-icon icon="clear"></ng-md-icon>
+                                <md-tooltip>
+                                    Clear Filter
+                                </md-tooltip>
+                            </md-button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody md-body>
+                    <tr build-item hide-project-field="$ctrl.projectVersionId !== undefined" on-build-remove="$ctrl.removeLocalBuild($index)"
+                        ng-click="$ctrl.openBuild(build)" ng-if="!$ctrl.isLoading" md-row build="build" ng-repeat="build in $ctrl.builds.results track by $index"></tr>
+                    <tr md-row ng-repeat="n in [].constructor($ctrl.pageSize) track by $index" ng-if="$ctrl.isLoading" class="list-item-loading-indicator">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr ng-if="$ctrl.isLoading === false && $ctrl.builds.total_result_count === 0">
+                        <td colspan="7">
+                            <div layout="row" layout-align="center center">
+                                <span>No Builds found.
+                                    <a ng-if="!$ctrl.version.is_locked" ui-sref="project-version.repository.overview({projectId: $ctrl.projectId, versionId: $ctrl.projectVersionId})">Create one by adding a repository.</a>
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </md-table-container>
+        <md-table-pagination md-on-paginate="loadBuilds" md-limit="$ctrl.pageSize" md-page="$ctrl.page" md-total="{{$ctrl.builds.total_result_count}}"></md-table-pagination>
+    </md-card>
+</div>

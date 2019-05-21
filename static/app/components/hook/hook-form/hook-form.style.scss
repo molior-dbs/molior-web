@@ -1,0 +1,15 @@
+.hook-form {
+    min-width: 70vw;
+    min-height: 90%;
+    .skip-ssl {
+        position: relative;
+        left: -10px;
+        top: -30px;
+    }
+    .hook-body {
+        .CodeMirror {
+            min-height: 300px;
+            box-shadow: 0 -2px 0 transparent inset, 0 0 0 1px #e0e0e0 inset;
+        }
+    }
+}
