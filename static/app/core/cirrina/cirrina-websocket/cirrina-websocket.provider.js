@@ -206,7 +206,7 @@ class CirrinaWebsocket {
             message = JSON.stringify(message);
         }
         this.websocket.socket.send(message);
-        this.logger.info('Sending websocket message:', message);
+        // this.logger.info('Sending websocket message:', message);
     }
 }
 

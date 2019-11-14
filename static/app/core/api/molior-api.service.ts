@@ -70,7 +70,7 @@ export class MoliorAPI {
         const { method, url, params } = requestOptions;
         let response;
 
-        this.logger.info(`Sending ${method}-request ${url}:`, params);
+        // this.logger.info(`Sending ${method}-request ${url}:`, params);
 
         try {
             response = await this.$http<T>(requestOptions);
@@ -79,7 +79,7 @@ export class MoliorAPI {
             throw err;
         }
 
-        this.logger.info(`Received ${method}-response ${url}:`, response);
+        // this.logger.debug(`Received ${method}-response ${url}:`, response);
         return response.data;
     }
 }

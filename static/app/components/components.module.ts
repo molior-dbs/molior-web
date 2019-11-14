@@ -19,6 +19,7 @@ import { RepositoryModule } from './repository/repository.module';
 import { SharedComponentsModule } from './shared/shared.module';
 import { UserRolesModule } from './user-roles/user-form.module';
 import { UserModule } from './user/user.module';
+import { NodeModule } from './node/node.module';
 
 /**
  * @ngdoc overview
@@ -58,6 +59,7 @@ export const ComponentsModule = angular
         BuildvariantModule,
         ArchitectureModule,
         UserModule,
+        NodeModule,
         UserRolesModule,
         BuildModule,
         SharedComponentsModule,

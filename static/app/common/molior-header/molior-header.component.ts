@@ -17,6 +17,7 @@ class MoliorHeaderController {
 
     public rightNavigationItems: NavigationItem[] = [
         { name: 'Mirrors', path: 'mirrors' },
+        { name: 'Nodes', path: 'nodes' },
         { name: 'Users', path: 'users' },
     ];
 
