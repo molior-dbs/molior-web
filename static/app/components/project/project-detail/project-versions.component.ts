@@ -8,7 +8,6 @@ class ProjectVersionsController {
     private query: string;
     private project: ProjectDetail;
     private versions: Version[];
-    private reverse: boolean;
     private showDeleted: boolean = false;
 
     public constructor(
@@ -23,7 +22,6 @@ class ProjectVersionsController {
 
     public $onInit() {
         this.versions = this.project.versions;
-        this.reverse = true;
     }
 
     public search() {
@@ -39,10 +37,6 @@ class ProjectVersionsController {
         this.project = await this.ProjectService.byDeletedFilter(this.project.id, this.showDeleted);
         this.search();
         this.$scope.$apply();
-    }
-
-    public toggleReverseFilter() {
-        this.reverse = !this.reverse;
     }
 }
 
@@ -65,23 +59,13 @@ export const ProjectVersionsComponent = {
         >
             <strong>Show deleted</strong>
         </md-checkbox>
-        <ng-md-icon
-            id="toggle-icon"
-            ng-click="$ctrl.toggleReverseFilter()"
-            size="35"
-            icon="{{ $ctrl.reverse && 'arrow_drop_down' || 'arrow_drop_up' }}"
-            style="
-                fill: rgb(255, 255, 255);
-                margin-left: 15px
-            "
-        ></ng-md-icon>
     </div>
     <div ng-class="{ 'project-versions-overflow': $ctrl.small }">
         <md-list-item
             ui-sref="project-version.info({projectId: $ctrl.project.id, versionId: version.id})"
             layout="row"
             aria-label="$version.name"
-            ng-repeat="version in $ctrl.versions | orderBy:'name':$ctrl.reverse"
+            ng-repeat="version in $ctrl.versions"
             class="noright">
             <div>
                 <strong ng-bind="version.name"></strong>

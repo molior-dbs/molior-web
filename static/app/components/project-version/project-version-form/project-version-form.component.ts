@@ -1,7 +1,6 @@
 import './project-version-form.style.scss';
 
 import { ProjectVersionService } from '../project-version.service';
-import { ArchitectureService } from '@molior/components/architecture/architecture.service';
 import { ProjectVersionDetail, ProjectVersionCreate, ProjectVersionCreateResponse } from '../interfaces';
 import { Architecture } from '@molior/components/architecture/interfaces';
 import { MoliorApiResponse } from '@molior/core';
@@ -20,7 +19,6 @@ export class ProjectVersionFormController {
 
     constructor(
         private ProjectVersionService: ProjectVersionService,
-        private ArchitectureService: ArchitectureService,
         private Notify: Notify,
         private $mdToast,
         public $mdDialog,
@@ -39,7 +37,7 @@ export class ProjectVersionFormController {
     public async save() {
         try {
             const response = await this.ProjectVersionService.create(this.projectId, this.ngModel);
-            this.$mdToast.show(this.Notify.notify('Version successfully created'));
+            this.$mdToast.show(this.Notify.notify('Projectversion successfully created'));
             this.onSave({ value: response });
         } catch (error) {
             this.$mdToast.show(this.Notify.notify(error.data || error.message || error.statusText));
@@ -53,15 +51,19 @@ export class ProjectVersionFormController {
     public async load() {
         // Load architectures and basemirror simultaneously
         const toLoad: Array<Promise<MoliorApiResponse<any>>> = [
-            this.ArchitectureService.all(),
             this.ProjectVersionService.all({ isbasemirror: true }),
         ];
 
         // Resolve all promises
-        const [architectures, basemirrors] = await Promise.all(toLoad);
+        const [basemirrors] = await Promise.all(toLoad);
 
-        this.architectures = architectures.results;
         this.basemirrors = basemirrors.results;
+    }
+
+    public getMirrorArchs(basemirror) {
+        console.log(basemirror);
+        this.ngModel.BasemirrorName = basemirror.project.name + '/' + basemirror.name;
+        this.architectures = basemirror.mirror_architectures;
     }
 }
 
@@ -82,7 +84,7 @@ export const ProjectVersionFormComponent: IComponentOptions = {
 <section class="project-version-form">
     <!-- Toolbar -->
     <md-toolbar layout="row" layout-align="center center">
-        <div class="md-toolbar-tools">New Version</div>
+        <div class="md-toolbar-tools">Create Projectversion</div>
         <!-- Close -->
         <md-button aria-label="Close Projectversion form" class="md-icon-button" ng-click="$ctrl.$mdDialog.cancel()">
             <ng-md-icon icon="close" />
@@ -93,22 +95,22 @@ export const ProjectVersionFormComponent: IComponentOptions = {
         <!-- Form Content -->
         <section layout="column">
             <div>
-                <h3>Version</h3>
-                <md-autocomplete md-items="i in []" required md-search-text="$ctrl.ngModel.name"></md-autocomplete>
+                <h3>Projectversion</h3>
+                <md-autocomplete md-items="i in []" required md-search-text="$ctrl.ngModel.VersionName"></md-autocomplete>
             </div>
             <div>
                 <h3>Basemirror</h3>
-                <md-select required style="min-width: 300px" ng-model="$ctrl.ngModel.basemirror">
-                    <md-option aria-label="List of Basemirrors" ng-repeat="basemirror in $ctrl.basemirrors" ng-value="basemirror.project.name + '/' + basemirror.name">
-                        {{ basemirror.project.name }} / {{ basemirror.name }}
+                <md-select required aria-label="basemirror" style="min-width: 300px" ng-model="$ctrl.ngModel.basemirror" ng-change="$ctrl.getMirrorArchs($ctrl.ngModel.basemirror)">
+                    <md-option aria-label="{{basemirror.project.name}}/{{basemirror.name}}" ng-repeat="basemirror in $ctrl.basemirrors" ng-value="basemirror">
+                        {{basemirror.project.name}}/{{basemirror.name}}
                     </md-option>
                 </md-select>
             </div>
             <div>
                 <h3>Architectures</h3>
-                <md-select multiple required aria-label="List of architectures" style="min-width: 300px" ng-model="$ctrl.ngModel.architectures">
-                    <md-option ng-repeat="architecture in $ctrl.architectures" ng-value="architecture.name">
-                        {{ architecture.name }}
+                <md-select multiple required aria-label="List of architectures" style="min-width: 300px" ng-model="$ctrl.ngModel.Architectures">
+                    <md-option ng-repeat="architecture in $ctrl.architectures" ng-value="architecture">
+                        {{architecture}}
                     </md-option>
                 </md-select>
             </div>
@@ -118,7 +120,7 @@ export const ProjectVersionFormComponent: IComponentOptions = {
         <div layout="row">
             <span flex></span>
             <md-button class="md-cancel md-primary" ng-click="$ctrl.$mdDialog.cancel()">CANCEL</md-button>
-            <md-button ng-disabled="!$ctrl.ngModel.name || !$ctrl.ngModel.basemirror || !$ctrl.ngModel.architectures" class="md-primary" type="submit"> SAVE</md-button>
+            <md-button ng-disabled="!$ctrl.ngModel.VersionName || !$ctrl.ngModel.BasemirrorName || !$ctrl.ngModel.Architectures" class="md-primary" type="submit">SAVE</md-button>
         </div>
     </form>
 </section>`,

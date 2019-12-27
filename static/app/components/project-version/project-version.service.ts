@@ -89,14 +89,21 @@ export class ProjectVersionService extends MoliorAPI {
     }
 
     /**
-     * Posts the given project version
+     * Create a project version
      *
      * @param {number} projectId The id of the project
      * @param {any} data The projectversion to post
      * @returns {Promise} The $http promise
      */
     public async create(projectId: number, data: ProjectVersionCreate): Promise<ProjectVersionCreateResponse> {
-        return await this.request({ url: `/api/projects/${projectId}/versions`, data, method: 'POST' });
+        return await this.request({
+            url: `/api/projects/${projectId}/versions`,
+            data: {
+                name: data.VersionName,
+                basemirror: data.BasemirrorName,
+                architectures: data.Architectures,
+            },
+            method: 'POST' });
     }
 
     /**
