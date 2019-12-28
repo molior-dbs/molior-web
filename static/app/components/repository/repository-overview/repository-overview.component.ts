@@ -57,7 +57,6 @@ class RepositoryOverviewController {
             () => this.updateURL(),
         );
         this.$scope = $scope;
-        this.$scope.load = () => this.load();
     }
 
     /**

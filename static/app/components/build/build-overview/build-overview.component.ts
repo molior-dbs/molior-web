@@ -50,7 +50,6 @@ class BuildOverviewController {
     ) {
         this.logger = Log.init('BuildOverviewComponent');
         // Workaround. See https://github.com/daniel-nagy/md-data-table/issues/579
-        this.$scope.loadBuilds = () => this.loadBuilds();
     }
     /**
      * @ngdoc

@@ -21,7 +21,6 @@ class UserListController {
         this.$mdDialog = $mdDialog;
         this.$state = $state;
         this.$scope = $scope;
-        this.$scope.load = () => this.load();
     }
 
     /**

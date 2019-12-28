@@ -22,7 +22,6 @@ class MirrorOverviewController {
         private $stateParams: StateParams,
         private $scope: angular.IScope,
         private ProjectVersionService: ProjectVersionService) {
-        this.$scope.load = () => this.load();
     }
 
     /**
