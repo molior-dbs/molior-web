@@ -25,10 +25,7 @@ WWWUSER=www-data
 case "$1" in
 
   configure)
-    chown -R $WWWUSER:$WWWUSER $WWWDIR
-    chmod -R 755 $WWWDIR
-    if [ -e "/etc/nginx/sites-enabled/default" ];
-    then
+    if [ -e "/etc/nginx/sites-enabled/default" ]; then
         rm -f /etc/nginx/sites-enabled/default
     fi
     invoke-rc.d nginx restart
