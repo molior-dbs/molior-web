@@ -1,7 +1,6 @@
 <a name="README">[<img src="https://rawgithub.com/jasmine/jasmine/master/images/jasmine-horizontal.svg" width="400px" />](http://jasmine.github.io)</a>
 
 [![Build Status](https://travis-ci.org/jasmine/jasmine.svg?branch=master)](https://travis-ci.org/jasmine/jasmine)
-[![Code Climate](https://codeclimate.com/github/pivotal/jasmine.svg)](https://codeclimate.com/github/pivotal/jasmine)
 
 =======
 
@@ -43,12 +42,12 @@ To install Jasmine standalone on your local box (where **_{#.#.#}_** below is su
 Add the following to your HTML file:
 
 ```html
-<link rel="shortcut icon" type="image/png" href="jasmine/lib/jasmine-core/jasmine_favicon.png">
-<link rel="stylesheet" type="text/css" href="jasmine/lib/jasmine-core/jasmine.css">
+<link rel="shortcut icon" type="image/png" href="jasmine/lib/jasmine-{#.#.#}/jasmine_favicon.png">
+<link rel="stylesheet" type="text/css" href="jasmine/lib/jasmine-{#.#.#}/jasmine.css">
 
-<script type="text/javascript" src="jasmine/lib/jasmine-core/jasmine.js"></script>
-<script type="text/javascript" src="jasmine/lib/jasmine-core/jasmine-html.js"></script>
-<script type="text/javascript" src="jasmine/lib/jasmine-core/boot.js"></script>
+<script type="text/javascript" src="jasmine/lib/jasmine-{#.#.#}/jasmine.js"></script>
+<script type="text/javascript" src="jasmine/lib/jasmine-{#.#.#}/jasmine-html.js"></script>
+<script type="text/javascript" src="jasmine/lib/jasmine-{#.#.#}/boot.js"></script>
 ```
 
 ## Supported environments

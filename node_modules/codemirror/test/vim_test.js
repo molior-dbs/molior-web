@@ -1,3 +1,5 @@
+CodeMirror.Vim.suppressErrorLogging = true;
+
 var code = '' +
 ' wOrd1 (#%\n' +
 ' word3] \n' +
@@ -502,6 +504,80 @@ testVim('{', function(cm, vim, helpers) {
   helpers.doKeys('6', '{');
   helpers.assertCursorAt(0, 0);
 }, { value: 'a\n\nb\nc\n\nd' });
+testVim('paragraph motions', function(cm, vim, helpers) {
+  cm.setCursor(10, 0);
+  helpers.doKeys('{');
+  helpers.assertCursorAt(4, 0);
+  helpers.doKeys('{');
+  helpers.assertCursorAt(0, 0);
+  helpers.doKeys('2', '}');
+  helpers.assertCursorAt(7, 0);
+  helpers.doKeys('2', '}');
+  helpers.assertCursorAt(16, 0);
+
+  cm.setCursor(9, 0);
+  helpers.doKeys('}');
+  helpers.assertCursorAt(14, 0);
+
+  cm.setCursor(6, 0);
+  helpers.doKeys('}');
+  helpers.assertCursorAt(7, 0);
+
+  // ip inside empty space
+  cm.setCursor(10, 0);
+  helpers.doKeys('v', 'i', 'p');
+  eqPos(Pos(7, 0), cm.getCursor('anchor'));
+  eqPos(Pos(12, 0), cm.getCursor('head'));
+  helpers.doKeys('i', 'p');
+  eqPos(Pos(7, 0), cm.getCursor('anchor'));
+  eqPos(Pos(13, 1), cm.getCursor('head'));
+  helpers.doKeys('2', 'i', 'p');
+  eqPos(Pos(7, 0), cm.getCursor('anchor'));
+  eqPos(Pos(16, 1), cm.getCursor('head'));
+
+  // should switch to visualLine mode
+  cm.setCursor(14, 0);
+  helpers.doKeys('<Esc>', 'v', 'i', 'p');
+  helpers.assertCursorAt(14, 0);
+
+  cm.setCursor(14, 0);
+  helpers.doKeys('<Esc>', 'V', 'i', 'p');
+  eqPos(Pos(16, 1), cm.getCursor('head'));
+
+  // ap inside empty space
+  cm.setCursor(10, 0);
+  helpers.doKeys('<Esc>', 'v', 'a', 'p');
+  eqPos(Pos(7, 0), cm.getCursor('anchor'));
+  eqPos(Pos(13, 1), cm.getCursor('head'));
+  helpers.doKeys('a', 'p');
+  eqPos(Pos(7, 0), cm.getCursor('anchor'));
+  eqPos(Pos(16, 1), cm.getCursor('head'));
+
+  cm.setCursor(13, 0);
+  helpers.doKeys('v', 'a', 'p');
+  eqPos(Pos(13, 0), cm.getCursor('anchor'));
+  eqPos(Pos(14, 0), cm.getCursor('head'));
+
+  cm.setCursor(16, 0);
+  helpers.doKeys('v', 'a', 'p');
+  eqPos(Pos(14, 0), cm.getCursor('anchor'));
+  eqPos(Pos(16, 1), cm.getCursor('head'));
+
+  cm.setCursor(0, 0);
+  helpers.doKeys('v', 'a', 'p');
+  eqPos(Pos(0, 0), cm.getCursor('anchor'));
+  eqPos(Pos(4, 0), cm.getCursor('head'));
+
+  cm.setCursor(0, 0);
+  helpers.doKeys('d', 'i', 'p');
+  var register = helpers.getRegisterController().getRegister();
+  eq('a\na\n', register.toString());
+  is(register.linewise);
+  helpers.doKeys('3', 'j', 'p');
+  helpers.doKeys('y', 'i', 'p');
+  is(register.linewise);
+  eq('b\na\na\nc\n', register.toString());
+}, { value: 'a\na\n\n\n\nb\nc\n\n\n\n\n\n\nd\n\ne\nf' });
 
 // Operator tests
 testVim('dl', function(cm, vim, helpers) {
@@ -521,7 +597,7 @@ testVim('dl_eol', function(cm, vim, helpers) {
   var register = helpers.getRegisterController().getRegister();
   eq(' ', register.toString());
   is(!register.linewise);
-  helpers.assertCursorAt(0, 6);
+  helpers.assertCursorAt(0, 5);
 }, { value: ' word1 ' });
 testVim('dl_repeat', function(cm, vim, helpers) {
   var curStart = makeCursor(0, 0);
@@ -612,7 +688,7 @@ testVim('dw_only_word', function(cm, vim, helpers) {
   var register = helpers.getRegisterController().getRegister();
   eq('word1 ', register.toString());
   is(!register.linewise);
-  helpers.assertCursorAt(0, 1);
+  helpers.assertCursorAt(0, 0);
 }, { value: ' word1 ' });
 testVim('dw_eol', function(cm, vim, helpers) {
   // Assert that dw does not delete the newline if last word to delete is at end
@@ -623,7 +699,7 @@ testVim('dw_eol', function(cm, vim, helpers) {
   var register = helpers.getRegisterController().getRegister();
   eq('word1', register.toString());
   is(!register.linewise);
-  helpers.assertCursorAt(0, 1);
+  helpers.assertCursorAt(0, 0);
 }, { value: ' word1\nword2' });
 testVim('dw_eol_with_multiple_newlines', function(cm, vim, helpers) {
   // Assert that dw does not delete the newline if last word to delete is at end
@@ -634,7 +710,7 @@ testVim('dw_eol_with_multiple_newlines', function(cm, vim, helpers) {
   var register = helpers.getRegisterController().getRegister();
   eq('word1', register.toString());
   is(!register.linewise);
-  helpers.assertCursorAt(0, 1);
+  helpers.assertCursorAt(0, 0);
 }, { value: ' word1\n\nword2' });
 testVim('dw_empty_line_followed_by_whitespace', function(cm, vim, helpers) {
   cm.setCursor(0, 0);
@@ -680,7 +756,7 @@ testVim('dw_repeat', function(cm, vim, helpers) {
   var register = helpers.getRegisterController().getRegister();
   eq('word1\nword2', register.toString());
   is(!register.linewise);
-  helpers.assertCursorAt(0, 1);
+  helpers.assertCursorAt(0, 0);
 }, { value: ' word1\nword2' });
 testVim('de_word_start_and_empty_lines', function(cm, vim, helpers) {
   cm.setCursor(0, 0);
@@ -1207,7 +1283,7 @@ testVim('D', function(cm, vim, helpers) {
   var register = helpers.getRegisterController().getRegister();
   eq('rd1', register.toString());
   is(!register.linewise);
-  helpers.assertCursorAt(0, 3);
+  helpers.assertCursorAt(0, 2);
 }, { value: ' word1\nword2\n word3' });
 testVim('C', function(cm, vim, helpers) {
   var curStart = makeCursor(0, 3);
@@ -1793,6 +1869,13 @@ testVim('visual_line', function(cm, vim, helpers) {
   helpers.doKeys('l', 'V', 'l', 'j', 'j', 'd');
   eq(' 4\n 5', cm.getValue());
 }, { value: ' 1\n 2\n 3\n 4\n 5' });
+testVim('visual_block_move_to_eol', function(cm, vim, helpers) {
+  // moveToEol should move all block cursors to end of line
+  cm.setCursor(0, 0);
+  helpers.doKeys('<C-v>', 'G', '$');
+  var selections = cm.getSelections().join();
+  eq("123,45,6", selections);
+}, {value: '123\n45\n6'});
 testVim('visual_block_different_line_lengths', function(cm, vim, helpers) {
   // test the block selection with lines of different length
   // i.e. extending the selection
@@ -1881,6 +1964,11 @@ testVim('visual_join', function(cm, vim, helpers) {
   eq(' 1 2 3\n 4\n 5', cm.getValue());
   is(!vim.visualMode);
 }, { value: ' 1\n 2\n 3\n 4\n 5' });
+testVim('visual_join_2', function(cm, vim, helpers) {
+  helpers.doKeys('G', 'V', 'g', 'g', 'J');
+  eq('1 2 3 4 5 6 ', cm.getValue());
+  is(!vim.visualMode);
+}, { value: '1\n2\n3\n4\n5\n6\n'});
 testVim('visual_blank', function(cm, vim, helpers) {
   helpers.doKeys('v', 'k');
   eq(vim.visualMode, true);
@@ -3029,7 +3117,7 @@ testVim('scrollMotion', function(cm, vim, helpers){
   eq(prevCursor.line, cm.getCursor().line);
   prevScrollInfo = cm.getScrollInfo();
   helpers.doKeys('<C-y>');
-  eq(prevCursor.line - 1, cm.getCursor().line);
+  eq(prevCursor.line - 1, cm.getCursor().line, "Y");
   is(prevScrollInfo.top > cm.getScrollInfo().top);
 }, { value: scrollMotionSandbox});
 

@@ -25,6 +25,11 @@ module.exports = class HotModuleReplacementPlugin {
 		const requestTimeout = this.requestTimeout;
 		const hotUpdateChunkFilename = compiler.options.output.hotUpdateChunkFilename;
 		const hotUpdateMainFilename = compiler.options.output.hotUpdateMainFilename;
+		compiler.plugin("additional-pass", callback => {
+			if(multiStep)
+				return setTimeout(callback, fullBuildTimeout);
+			return callback();
+		});
 		compiler.plugin("compilation", (compilation, params) => {
 			const hotUpdateChunkTemplate = compilation.hotUpdateChunkTemplate;
 			if(!hotUpdateChunkTemplate) return;
@@ -87,11 +92,6 @@ module.exports = class HotModuleReplacementPlugin {
 			compilation.plugin("need-additional-pass", () => {
 				if(multiStep && !recompilation && !initialPass)
 					return true;
-			});
-			compiler.plugin("additional-pass", callback => {
-				if(multiStep)
-					return setTimeout(callback, fullBuildTimeout);
-				return callback();
 			});
 			compilation.plugin("additional-chunk-assets", function() {
 				const records = this.records;
@@ -215,10 +215,13 @@ module.exports = class HotModuleReplacementPlugin {
 								this.state.module.addDependency(dep);
 								requests.push(request);
 							});
-							if(expr.arguments.length > 1)
+							if(expr.arguments.length > 1) {
 								this.applyPluginsBailResult("hot accept callback", expr.arguments[1], requests);
-							else
+								parser.walkExpression(expr.arguments[1]); // other args are ignored
+							} else {
 								this.applyPluginsBailResult("hot accept without callback", expr, requests);
+							}
+							return true;
 						}
 					}
 				});

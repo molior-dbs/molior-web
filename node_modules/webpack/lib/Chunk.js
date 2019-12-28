@@ -308,6 +308,9 @@ class Chunk {
 		otherChunk.origins.forEach(origin => {
 			this.origins.push(origin);
 		});
+		this.blocks.forEach(b => {
+			b.chunkReason = reason;
+		});
 		this.origins.forEach(origin => {
 			if(!origin.reasons) {
 				origin.reasons = [reason];
@@ -401,14 +404,14 @@ class Chunk {
 		return this.addMultiplierAndOverhead(integratedModulesSize, options);
 	}
 
-	getChunkMaps(includeEntries, realHash) {
+	getChunkMaps(includeInitial, realHash) {
 		const chunksProcessed = [];
 		const chunkHashMap = {};
 		const chunkNameMap = {};
 		(function addChunk(chunk) {
 			if(chunksProcessed.indexOf(chunk) >= 0) return;
 			chunksProcessed.push(chunk);
-			if(!chunk.hasRuntime() || includeEntries) {
+			if(!chunk.isInitial() || includeInitial) {
 				chunkHashMap[chunk.id] = realHash ? chunk.hash : chunk.renderedHash;
 				if(chunk.name)
 					chunkNameMap[chunk.id] = chunk.name;

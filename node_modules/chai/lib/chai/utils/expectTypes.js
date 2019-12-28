@@ -13,8 +13,6 @@
  *
  * @param {Mixed} obj constructed Assertion
  * @param {Array} type A list of allowed types for this assertion
- * @param {Function} ssfi starting point for removing implementation frames from
- *                        stack trace of AssertionError
  * @namespace Utils
  * @name expectTypes
  * @api public
@@ -24,8 +22,9 @@ var AssertionError = require('assertion-error');
 var flag = require('./flag');
 var type = require('type-detect');
 
-module.exports = function expectTypes(obj, types, ssfi) {
+module.exports = function expectTypes(obj, types) {
   var flagMsg = flag(obj, 'message');
+  var ssfi = flag(obj, 'ssfi');
 
   flagMsg = flagMsg ? flagMsg + ': ' : '';
 
@@ -33,7 +32,7 @@ module.exports = function expectTypes(obj, types, ssfi) {
   types = types.map(function (t) { return t.toLowerCase(); });
   types.sort();
 
-  // Transforms ['lorem', 'ipsum'] into 'a lirum, or an ipsum'
+  // Transforms ['lorem', 'ipsum'] into 'a lorem, or an ipsum'
   var str = types.map(function (t, index) {
     var art = ~[ 'a', 'e', 'i', 'o', 'u' ].indexOf(t.charAt(0)) ? 'an' : 'a';
     var or = types.length > 1 && index === types.length - 1 ? 'or ' : '';
