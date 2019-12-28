@@ -19,7 +19,6 @@
     }
     .error-log-not-found {
         min-height: 400px;
-        background: url(~img/penguin_not_found.gif);
         background-size: cover;
         background-position: center;
         ng-md-icon {
@@ -55,7 +54,7 @@
                 margin-right: 10px;
                 text-align: right;
             }
-        }      
+        }
         .log-line {
             padding: 0;
             padding-left: 5px;
@@ -95,7 +94,7 @@
     }
     &-header {
     transition: box-shadow 0.5s ease-in-out;
-    
+
     }
     &-header-sticky {
         z-index: 72;
