@@ -28,7 +28,7 @@
     "angular-messages": "^1.7.9",
     "angular-sanitize": "^1.7.9",
     "angular-ui-codemirror": "^0.3.0",
-    "ansi_up": "^2.0.2",
+    "ansi_up": "^5.0.0",
     "chart.js": "^2.6.0",
     "codemirror": "^4.8.0",
     "countup.js": "^1.8.5",
