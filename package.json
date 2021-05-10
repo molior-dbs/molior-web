@@ -33,7 +33,7 @@
     "codemirror": "^4.8.0",
     "countup.js": "^1.8.5",
     "jquery": "^3.2.1",
-    "lodash": "^4.17.13",
+    "lodash": "^4.17.21",
     "material-steppers": "^2.0.0",
     "moment": "^2.18.1",
     "moment-duration-format": "^2.2.2",
