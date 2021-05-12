@@ -30,7 +30,7 @@
     "angular-ui-codemirror": "^0.3.0",
     "ansi_up": "^2.0.2",
     "chart.js": "^2.6.0",
-    "codemirror": "^4.8.0",
+    "codemirror": "^5.58.2",
     "countup.js": "^1.8.5",
     "jquery": "^3.2.1",
     "lodash": "^4.17.13",
