@@ -90,7 +90,7 @@
     "mocha": "^4.1.0",
     "nan": "^2.11.1",
     "ngtemplate-loader": "^2.0.1",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
     "ts-loader": "^3.3.1",
