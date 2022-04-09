@@ -35,7 +35,7 @@
     "jquery": "^3.2.1",
     "lodash": "^4.17.13",
     "material-steppers": "^2.0.0",
-    "moment": "^2.18.1",
+    "moment": "^2.29.2",
     "moment-duration-format": "^2.2.2",
     "ng-showdown": "^1.1.0",
     "ngclipboard": "^1.1.1",
